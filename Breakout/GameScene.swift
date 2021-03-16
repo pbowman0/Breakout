@@ -13,6 +13,7 @@ import GameplayKit
 class GameScene: SKScene {
     
     var ball = SKShapeNode()
+    var paddle = SKSpriteNode()
     
     override func didMove(to view: SKView) {
         createBackground()
@@ -23,6 +24,7 @@ class GameScene: SKScene {
     func resetGame() {
         // this stuff happens before each game starts
         makeBall()
+        makePaddle()
     }
     
     func createBackground() {
@@ -66,5 +68,15 @@ class GameScene: SKScene {
         
         addChild(ball)  // add ball object to the view
     }
+    
+    func makePaddle() {
+            paddle.removeFromParent()   // remove the paddle, if it exists
+            paddle = SKSpriteNode(color: .white, size: CGSize(width: frame.width/4, height: 20))
+            paddle.position = CGPoint(x: frame.midX, y: frame.minY + 125)
+            paddle.name = "paddle"
+            paddle.physicsBody = SKPhysicsBody(rectangleOf: paddle.size)
+            paddle.physicsBody?.isDynamic = false
+            addChild(paddle)
+        }
 }
 
